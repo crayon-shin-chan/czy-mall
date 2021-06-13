@@ -1,0 +1,11 @@
+
+dependencies {
+    api project(":spring-boot-starter-auth")
+
+    /* 支付宝sdk */
+    api group: 'com.alipay.sdk', name: 'alipay-sdk-java'
+    /* easy sdk是精简版 */
+    api group: 'com.alipay.sdk', name: 'alipay-easysdk'
+}
+
+

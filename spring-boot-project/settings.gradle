@@ -1,0 +1,14 @@
+rootProject.name="czy-spring-boot"
+
+include 'spring-boot-starter-admin'//管理模块
+include 'spring-boot-starter-alipay'//支付宝模块
+include 'spring-boot-starter-auth'//认证模块
+include 'spring-boot-starter-cache'//缓存模块
+include 'spring-boot-starter-captcha'//验证码模块
+include 'spring-boot-starter-common'//通用模块
+include 'spring-boot-starter-i18n'//国际化模块
+include 'spring-boot-starter-jpa'//JPA配置模块
+include 'spring-boot-starter-performance'//性能监控模块
+include 'spring-boot-starter-swagger'//swagger模块
+include 'spring-boot-starter-mall'//swagger模块
+include 'spring-boot-starter-project'//project

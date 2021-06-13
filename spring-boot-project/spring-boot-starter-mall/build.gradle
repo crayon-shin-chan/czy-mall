@@ -1,0 +1,14 @@
+
+dependencies {
+    api project(":spring-boot-starter-jpa")
+    api project(":spring-boot-starter-auth")
+    api project(":spring-boot-starter-cache")
+    api project(":spring-boot-starter-common")
+    api project(":spring-boot-starter-admin")
+    api project(":spring-boot-starter-i18n")
+    api project(":spring-boot-starter-performance")
+    api project(":spring-boot-starter-swagger")
+    api group: 'mysql', name: 'mysql-connector-java'
+}
+
+

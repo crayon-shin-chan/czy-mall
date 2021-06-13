@@ -1,0 +1,7 @@
+
+dependencies {
+    /* 引入JPA模块 */
+    api('org.springframework.boot:spring-boot-starter-data-jpa')
+}
+
+

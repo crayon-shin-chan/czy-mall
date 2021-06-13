@@ -1,0 +1,7 @@
+
+dependencies {
+    api project(":spring-boot-starter-captcha")//验证码模块
+    api project(":spring-boot-starter-common")//通用模块
+}
+
+

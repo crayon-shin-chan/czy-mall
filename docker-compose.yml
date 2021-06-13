@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  api:
+    container_name: mall-api
+    depends_on: 
+      - db
+      - redis
+    build:
+      context: ./
+      dockerfile: ./spring-boot-project/dockerfile
+      target: api-local
+    ports:
+      - 8080:8080
+    environment:
+      - SERVER_PORT=8080
+      - SERVER_SERVLET_CONTEXT_PATH=/mall
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mall-db/mall
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=123456
+      - SPRING_REDIS_HOST=mall-redis 
+      - JAVA_OPTS=-Xmx1024m
+    volumes: 
+      - ./spring-boot-project:/usr/src/app:cached
+      - ./config/application.yml:/usr/src/app/spring-boot-starter-project/src/main/resources/application.yml:cached
+    command: ./gradlew spring-boot-starter-project:bootRun -Dspring-boot.run.jvmArguments="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8000"
+  db:
+    container_name: mall-db
+    image: mysql:8.0.23
+    ports:
+      - 3306:3306
+    expose:
+      - "3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=mall
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - mysql_config:/etc/mysql/conf.d
+  redis:
+    container_name: mall-redis
+    image: "redis"
+    volumes:
+      - ./config/redis.conf:/usr/local/redis.conf:ro
+    ports:
+      - "6379:6379"
+    expose:
+      - "6379"
+    command: ["redis-server", "/usr/local/redis.conf"]
+volumes:
+  mysql_data:
+  mysql_config:
+    

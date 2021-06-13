@@ -1,0 +1,16 @@
+
+dependencies {
+    /* 通用模块引入web、jpa、redis、session、security依赖 */
+    api('org.springframework.boot:spring-boot-starter-web')
+    api('org.springframework.boot:spring-boot-starter-data-redis')
+    api('org.springframework.session:spring-session-data-redis')
+    api('org.springframework.boot:spring-boot-starter-security')
+    api group: 'cn.hutool', name: 'hutool-all'
+    api('redis.clients:jedis')
+    api('org.reflections:reflections')
+    api('io.springfox:springfox-swagger2')
+    api project(":spring-boot-starter-jpa")//JPA模块
+
+}
+
+

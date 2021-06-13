@@ -1,0 +1,5 @@
+FROM adoptopenjdk/openjdk8:latest as api-local
+
+WORKDIR /usr/src/app
+COPY ./spring-boot-project ./
+COPY ./config/application.yml ./spring-boot-starter-project/src/main/resources/application.yml

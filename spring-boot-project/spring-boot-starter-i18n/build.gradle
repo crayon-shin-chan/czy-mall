@@ -1,0 +1,6 @@
+
+dependencies {
+    api project(":spring-boot-starter-auth")
+}
+
+

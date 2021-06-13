@@ -1,0 +1,177 @@
+/* gradle根项目构建文件 */
+buildscript {
+    ext {
+        springBootVersion = '2.5.1'
+    }
+    repositories {
+        maven{
+            url 'https://plugins.gradle.org/m2/'//gradle插件仓库
+        }
+        mavenCentral()
+        jcenter()
+        google()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("org.hibernate:hibernate-jpamodelgen:5.4.32.Final")
+    }
+}
+/* 应用于所有子项目以及根项目的脚本 */
+allprojects {
+
+}
+
+/* 只应用于子项目的脚本，这里的脚本内容，貌似只会在执行父项目任务时读取，如果直接执行子项目任务，好像不能读取 */
+subprojects {
+
+    //apply plugin: 'java'
+    apply plugin: 'java-library'
+    apply plugin: 'idea'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+
+    group = 'czy.spring.boot'
+    version = '0.0.1-SNAPSHOT'
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+    /* 源文件编码 */
+    compileJava.options.encoding = "UTF-8"
+    compileTestJava.options.encoding = "UTF-8"
+
+    jar {
+        enabled = true
+    }
+
+    ext {
+        developerId = "crayon-shin-chan"
+        developerName = "chenzhenyuan"
+        developerEmail = "1253665625@qq.com"
+    }
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        jcenter()
+        google()
+    }
+
+    /* 依赖管理配置 */
+    dependencyManagement {
+        /* 禁用maven排除语义 */
+        applyMavenExclusions = false
+        /* 禁止用依赖项覆盖依赖管理项 */
+        overriddenByDependencies = true
+        /* 生成POM里包含 */
+        generatedPomCustomization {
+            enabled = true
+        }
+        /* 禁用缓存 */
+        resolutionStrategy {
+            cacheChangingModulesFor 0, 'seconds'
+        }
+        /* 导入的依赖管理POM */
+        imports {
+
+            /* activiti依赖 */
+            mavenBom 'org.activiti.dependencies:activiti-dependencies:7.1.0.M5'
+
+            /* jackson依赖 */
+            mavenBom 'com.fasterxml.jackson:jackson-bom:2.10.2'
+            mavenBom "org.springframework.boot:spring-boot-dependencies:${springBootVersion}"
+        }
+        dependencies {
+            /* aspects依赖 */
+            dependency group: 'org.springframework', name: 'spring-aspects', version: '5.2.8.RELEASE'
+
+            /* swagger依赖 */
+            dependency group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+            dependency group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
+            dependency group: 'io.springfox', name: 'springfox-bean-validators', version: '2.9.2'
+
+            /* logback */
+            dependency group: 'net.logstash.logback', name: 'logstash-logback-encoder', version: '6.3'
+
+            /* openpdf */
+            dependency group: 'com.github.librepdf', name: 'openpdf', version: '1.3.12'
+
+            /* poi */
+            dependency group: 'org.apache.poi', name: 'poi', version: '4.1.1'
+            dependency group: 'org.apache.poi', name: 'poi-ooxml', version: '4.1.1'
+            dependency group: 'org.apache.poi', name: 'poi-ooxml-schemas', version: '4.1.1'
+            dependency group: 'org.apache.poi', name: 'poi-scratchpad', version: '4.1.1'
+            dependency group: 'org.apache.poi', name: 'poi-excelant', version: '4.1.1'
+            dependency group: 'org.apache.poi', name: 'poi-examples', version: '4.1.1'
+
+            /* easy excel */
+            dependency group: 'io.github.xinshepherd', name: 'easy-excel', version: '1.2.0'
+
+            /* alibaba  */
+            dependency group: 'com.alibaba', name: 'easyexcel', version: '2.1.6'
+
+            /* java工具包 */
+            dependency group: 'cn.hutool', name: 'hutool-all', version: '5.3.6'
+
+            /* reflections 反射工具 */
+            dependency group: 'org.reflections', name: 'reflections', version: '0.9.12'
+
+            /* jackson支持hibernate5的模块 */
+            dependency group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-hibernate5', version: '2.11.0'
+            dependency group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-xml', version: '2.11.0'
+            dependency group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-properties', version: '2.11.0'
+            dependency group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-csv', version: '2.11.0'
+            dependency group: 'org.hibernate', name: 'hibernate-jpamodelgen', version: '5.4.17.Final'
+
+            dependency group: 'javax.annotation', name: 'javax.annotation-api', version: '1.3.2'
+            dependency group: 'javax.persistence', name: 'javax.persistence-api', version: '2.2'
+
+
+            /* 支付宝sdk */
+            dependency group: 'com.alipay.sdk', name: 'alipay-sdk-java', version: '4.10.29.ALL'
+            dependency group: 'com.alipay.sdk', name: 'alipay-easysdk', version: '2.0.0'
+
+        }
+    }
+
+    dependencies{
+
+        compileOnly 'org.projectlombok:lombok:1.18.12'
+        annotationProcessor 'org.projectlombok:lombok:1.18.12'
+        testCompileOnly 'org.projectlombok:lombok:1.18.12'
+        testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
+
+        /* JPA静态元数据注解执行器 */
+        annotationProcessor 'org.hibernate:hibernate-jpamodelgen:5.4.17.Final'
+
+        /* starter配置注解处理器 */
+        annotationProcessor group: 'org.springframework.boot', name: 'spring-boot-configuration-processor'
+
+        implementation group: 'org.projectlombok', name: 'lombok', version: '1.18.12'
+
+        implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.30'
+        implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+
+        implementation group: 'org.springframework.boot', name: 'spring-boot-starter'
+        implementation group: 'org.springframework.boot', name: 'spring-boot-autoconfigure'
+
+        implementation group: 'org.hibernate', name: 'hibernate-validator', version: '6.1.5.Final'
+
+        implementation group: 'com.h2database', name: 'h2', version: '1.4.200'
+        implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-hibernate5'
+        implementation group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-xml'
+        implementation group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-properties'
+        implementation group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-csv'
+        implementation group: 'javax.annotation', name: 'javax.annotation-api'
+        implementation group: 'javax.persistence', name: 'javax.persistence-api'
+
+
+        //implementation group: 'org.hibernate', name: 'hibernate-jpamodelgen'
+
+        implementation group: 'io.swagger', name: 'swagger-annotations', version: '1.6.1'
+        testImplementation group: 'junit', name: 'junit', version: '4.13'
+    }
+
+}
+
+
+
+

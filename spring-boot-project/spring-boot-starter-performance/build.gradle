@@ -1,0 +1,7 @@
+
+dependencies {
+    /* 引入通用模块 */
+    api group: 'org.springframework.boot', name: 'spring-boot-starter-aop'
+}
+
+

@@ -1,0 +1,40 @@
+spring:
+  data:
+    web:
+      pageable:
+        #是否页码从1开始
+        one-indexed-parameters: true
+  session:
+    store-type: redis
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    database: mysql
+    hibernate:
+      ddl-auto: update
+      naming:
+        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+    show-sql: true
+  redis:
+    client-name: project
+    port: 6379
+    password:
+    database: 0
+  cache:
+    type: redis
+
+server:
+  port: 8080
+  servlet:
+    context-path: /project
+
+czy:
+  spring:
+    swagger:
+      enable: true
+    auth:
+      enable: true
+      permission-delete: true
+      permission-update: true
+      permission-sync: true

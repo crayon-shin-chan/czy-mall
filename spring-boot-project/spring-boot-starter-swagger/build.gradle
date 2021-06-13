@@ -1,0 +1,10 @@
+
+dependencies {
+    api project(":spring-boot-starter-common")
+    /* 依赖通用模块 */
+    api group: 'io.springfox', name: 'springfox-swagger2'
+    api group: 'io.springfox', name: 'springfox-swagger-ui'
+    api group: 'io.springfox', name: 'springfox-bean-validators'
+}
+
+
